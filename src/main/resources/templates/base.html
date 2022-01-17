@@ -1,0 +1,74 @@
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Тренировка экзамена</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer/">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Favicons -->
+
+    <style>
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+</head>
+<body class="d-flex flex-column h-100">
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+                <span class="fs-4">Тренировка экзамена</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Заново</a></li>
+                <li class="nav-item"><a href="/final" class="nav-link">Итог</a></li>
+{#                <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>#}
+{#                <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>#}
+{#                <li class="nav-item"><a href="#" class="nav-link">About</a></li>#}
+            </ul>
+        </header>
+    </div>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="b-example-divider">&nbsp;</div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Вопрос № {{ question.num }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ question.questionText }}</h5>
+                <form method="get" id="checkform" action="/question/{{ question.num }}/check">
+                {% if question.multipleCorrectAnswers %}
+                    <div class="list-group mx-0">
+                        {% for answer in question.answers %}
+                            <label class="list-group-item d-flex gap-3">
+                                <input class="form-check-input flex-shrink-0" type="checkbox" id="listGroupCheck" name="listGroupCheck" value="{{ answer.id }}"
+                                       style="font-size: 1.375em;" data-enpassusermodified="yes">
+                                <span class="pt-1 form-checked-content">
+                                        {{ answer.answerText }}
+                                    </span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="list-group mx-0">
+                        {% for answer in question.answers %}
+                            <label class="list-group-item d-flex gap-2">
+                                <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios"
+                                       id="listGroupRadios1" value="{{ answer.id }}" checked="">
+                                <span>{{ answer.answerText }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                </form>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col-1">
+                    <button class="btn btn-success" type="submit" form="checkform">Проверить</button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

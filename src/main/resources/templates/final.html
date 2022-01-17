@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Результаты сдачи экзамена</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Вы ответили на {{ answered }} вопросов из {{ questionCount }}. Правильных ответов было {{ correctAnswers }}</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="/">Сдать еще раз</a>
+            </div>
+            <br>
+            <br>
+            <p class="lead mb-4">Подробные результаты</p>
+
+            <div class="list-group">
+                {% for answer in answers %}
+                    <span class="list-group-item list-group-item-action
+                        {% if answer.correct %}
+                            list-group-item-success
+                        {% else %}
+                             {% if answer.notAnswered %}
+                                list-group-item-dark
+                             {% else %}
+                                list-group-item-danger
+                              {% endif %}
+                        {% endif %}">{{ answer.text }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
