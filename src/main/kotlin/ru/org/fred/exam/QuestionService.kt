@@ -29,6 +29,7 @@ data class UserAnswers(
 ) {
     @Suppress("unused")
     fun hasAnswer(answerId: Int): Boolean {
+        LoggerFactory.getLogger(UserAnswers::class.java).info("Answers = $answerIds, check $answerId")
         return answerIds.contains(answerId)
     }
 }
@@ -45,7 +46,9 @@ data class FinalAnswer(
     val text:String,
     val correct:Boolean,
     val notAnswered:Boolean,
-    val wrong:Boolean
+    val wrong:Boolean,
+    val question: Question,
+    val userAnswers: UserAnswers?
 )
 
 class QuestionService {
@@ -53,6 +56,7 @@ class QuestionService {
     val exam = Exam(mutableListOf())
     private val questionRegex = Regex("(\\d+)\\.(.+)")
     private val answersResult:MutableMap<Int, Boolean?> = mutableMapOf()
+    private val userAnswers:MutableMap<Int, UserAnswers> = mutableMapOf()
     fun loadQuestions() {
         val text = ClassLoader.getSystemResource("exam1.md").readText()
 
@@ -103,6 +107,7 @@ class QuestionService {
         val correctAnswers = getQuestion(questionNum).answers.filter { it.correctAnswer }.map { it.id }.sorted()
         val result = userAnswer.answerIds.sorted() == correctAnswers
         answersResult[questionNum] = result
+        userAnswers[questionNum] = userAnswer
         return result
     }
 
@@ -122,6 +127,8 @@ class QuestionService {
                 answersResult[questionNum] == true,
                 answersResult[questionNum] == null,
                 answersResult[questionNum] == false,
+                getQuestion(questionNum),
+                userAnswers[questionNum]
             )
         }
         return FinalStat(

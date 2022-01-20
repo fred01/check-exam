@@ -17,6 +17,7 @@ import io.ktor.server.locations.get
 import io.ktor.server.pebble.Pebble
 import io.ktor.server.pebble.PebbleContent
 import io.ktor.server.response.respond
+import io.ktor.server.response.respondRedirect
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import ru.org.fred.exam.QuestionService
@@ -72,19 +73,24 @@ fun Application.configureRouting(questionService: QuestionService) {
             )
             val correctAnswer = questionService.checkAnswer(location.questionNum, userAnswer)
             val question = questionService.getQuestion(location.questionNum)
-            call.respond(
-                PebbleContent(
-                    "check.html", mapOf(
-                        "question" to question,
-                        "hasPrevious" to hasPrevQuestion,
-                        "hasNext" to hasNextQuestion,
-                        "prevQuestionNum" to location.questionNum - 1,
-                        "nextQuestionNum" to location.questionNum + 1,
-                        "correctAnswer" to correctAnswer,
-                        "userAnswers" to userAnswer
-                    )
-                )
-            )
+            if (questionService.lastQuestionNum() != location.questionNum) {
+                call.respondRedirect("/question/${location.questionNum+1}")
+            } else {
+                call.respondRedirect("/final")
+            }
+//            call.respond(
+//                PebbleContent(
+//                    "check.html", mapOf(
+//                        "question" to question,
+//                        "hasPrevious" to hasPrevQuestion,
+//                        "hasNext" to hasNextQuestion,
+//                        "prevQuestionNum" to location.questionNum - 1,
+//                        "nextQuestionNum" to location.questionNum + 1,
+//                        "correctAnswer" to correctAnswer,
+//                        "userAnswers" to userAnswer
+//                    )
+//                )
+//            )
         }
         // Static plugin. Try to access `/static/index.html`
         static("/static") {
